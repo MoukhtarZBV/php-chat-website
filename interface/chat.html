@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <link rel="stylesheet" href="">
     <script defer src="https://use.fontawesome.com/releases/v6.4.2/js/all.js"></script>
+    <script src = "https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <title>Chat</title>
 </head>
 <body>
@@ -48,15 +49,14 @@
         if (msgWithoutSpaces.length > 0 && canSendMessage) { 
             $.ajax({
                 type: 'POST',
-                url: '../functions/chatFunctions.php',
+                url: '../php/enregistrer.php',
                 data: {
-                    loggedUser: loggedUser,
-                    otherUser: otherUser,
-                    message: message,
-                    newGroup: newGroup,
+                    pseudo: "moi",
+                    message: message
                 },
                 success: function(data) {
                     if (data) {
+                        console.log("%c SUCCES", "color:green;");
                         scrollDownChat();
                     } else {
                         console.log("%c ERREUR: Update message", "color:red;");
