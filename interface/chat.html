@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <link rel="stylesheet" href="">
     <script defer src="https://use.fontawesome.com/releases/v6.4.2/js/all.js"></script>
+    <script src = "https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <title>Chat</title>
 </head>
 <body>
@@ -281,7 +282,7 @@
     }
 
     #chat-header {
-        background-color: rgb(231, 76, 60);
+        background-color: rgb(33, 140, 116);
         padding:2%;
         display:flex;
         align-items: center;
@@ -333,6 +334,24 @@ for(i=0; i<density; i++) {
 
 refresh();
 canvas.addEventListener("click", refresh, false);
+
+</script>
+
+<script>
+    setInterval(function() {
+        $.ajax({
+            type: 'POST',
+            url: '../php/recuperer.php',
+            success: function(data) {
+                if (data) {
+                    // scrollDownChat(); plus tard
+                    $("#chat-body").html(data);
+                } else {
+                    console.log("%c ERREUR: Update message", "color:red;");
+                }
+            }
+        })
+    }, 3000)
 
 </script>
 
