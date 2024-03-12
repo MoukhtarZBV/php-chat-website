@@ -12,10 +12,6 @@
             <canvas id="canvas" width="40" height="40"></canvas>
             <input type="text">
         </div>
-        <div id="chat-body"></div>
-        <div id="chat-input"></div>
-    <div>
-        <div id="chat-header"></div>
         <div id="chat-body">
             <div class="message-sender">
                 <img class="message-pfp">
@@ -36,6 +32,40 @@
             </div>
         </div>
     </div>
+        
+
+    <script>
+    function sendMessage() {
+        let input = document.getElementById("chat-message-input");
+        let message = input.value;
+
+        let canSendMessage = canSend;
+        disableMessageSubmitButton();
+        input.value = "";
+
+        let msgWithoutSpaces = message.replace(' ', '');
+
+        if (msgWithoutSpaces.length > 0 && canSendMessage) { 
+            $.ajax({
+                type: 'POST',
+                url: '../functions/chatFunctions.php',
+                data: {
+                    loggedUser: loggedUser,
+                    otherUser: otherUser,
+                    message: message,
+                    newGroup: newGroup,
+                },
+                success: function(data) {
+                    if (data) {
+                        scrollDownChat();
+                    } else {
+                        console.log("%c ERREUR: Update message", "color:red;");
+                    }
+                }
+            })
+        }
+    }   
+    </script>
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
@@ -271,6 +301,7 @@
     }
 
 </style>
+
 
 <script>
 
