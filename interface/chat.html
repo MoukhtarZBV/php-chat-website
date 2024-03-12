@@ -5,10 +5,85 @@
     <title>Chat</title>
 </head>
 <body>
-    <div>
-        <div id="chat-header"></div>
+    <div id="chat-container">
+        <div id="chat-header">
+            <canvas id="canvas" width="40" height="40"></canvas>
+            <input type="text">
+        </div>
         <div id="chat-body"></div>
         <div id="chat-input"></div>
     </div>
 </body>
+
+<style>
+    body {
+        margin:0;
+        padding:0;
+        display:flex;
+        align-items: center;
+        justify-content: center;
+        height:100vh;
+        background-color: #eeeeee;
+    }
+    
+    #chat-container {
+        width:60%;
+        background-color:white;
+    }
+
+    #chat-header {
+        background-color: rgb(231, 76, 60);
+        padding:2%;
+        display:flex;
+        align-items: center;
+        gap:15px;
+    }
+
+    #chat-header input {
+        flex:0;
+        padding:7px;
+        outline:none;
+        border:none;
+        border-radius:3px;
+    }
+    #canvas {
+        border-radius:50%;
+        border:2px solid white;
+    }
+
+</style>
+
+<script>
+
+var canvas = document.getElementById("canvas");
+var ctx = canvas.getContext("2d");
+
+var button = document.getElementById("refresh");
+
+var refresh = function() {
+
+ctx.clearRect(0,0,50,50);
+let density = Math.floor(Math.random()*50)+100;
+for(i=0; i<density; i++) {
+    var x = Math.floor(Math.random()*100);
+    var y = Math.floor(Math.random()*100);
+    var radius = Math.floor(Math.random()*10);
+
+    var r = Math.floor(Math.random()*255);
+    var g = Math.floor(Math.random()*255);
+    var b = Math.floor(Math.random()*255);
+    
+    ctx.beginPath();
+    ctx.arc(x,y,radius,Math.PI*2,0,false);
+    ctx.fillStyle = "rgba(" + r + "," + g + "," + b + ",1)";
+    ctx.fill();
+    ctx.closePath();
+    }
+}
+
+refresh();
+canvas.addEventListener("click", refresh, false);
+
+</script>
+
 </html>
