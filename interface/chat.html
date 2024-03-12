@@ -2,6 +2,8 @@
 <html>
 <head>
     <meta charset="UTF-8" />
+    <link rel="stylesheet" href="">
+    <script defer src="https://use.fontawesome.com/releases/v6.4.2/js/all.js"></script>
     <title>Chat</title>
 </head>
 <body>
@@ -12,7 +14,224 @@
         </div>
         <div id="chat-body"></div>
         <div id="chat-input"></div>
+    <div>
+        <div id="chat-header"></div>
+        <div id="chat-body">
+            <div class="message-sender">
+                <img class="message-pfp">
+                <p class="message-sender-username">Nautilus <span class="message-sent-date">10:54</span></p>
+            </div>
+            <div class="message-group">
+                <p class="message">Bonjour</p>
+                <p class="message">Ca va ?</p>
+                <p class="message">Repond stp..</p>
+            </div>
+        </div>
+        <div id="chat-inputs-body">
+            <div id="chat-inputs">
+                <input type="text" id="chat-message-input" name="message" placeholder="Saisissez un message..." autocomplete="off">
+                <i class="chat-option fa-solid fa-face-smile"></i>
+                <div class='chat-option-separator'></div>
+                <i class="chat-option fa-solid fa-paper-plane" id="chat-message-submit" onclick = "sendMessage()"></i>
+            </div>
+        </div>
     </div>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+        * {
+            padding: 0px;
+            margin: 0px;
+            font-family: "Montserrat", sans-serif;
+        }
+
+        #chat-body {
+            display: flex;
+            flex-direction: column;
+            min-height:50vh;
+        }
+
+        .message-sender {
+            display: flex;
+        }
+
+        .message-pfp {
+            width: 35px;
+            height: 35px;
+            background-color: gray;
+            border-radius: 50%;
+            margin: 0px 10px;
+        }
+
+        .message-sender-username {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .message-sent-date {
+            font-size: 15px;
+            font-weight: normal;
+        }
+
+        .message-group {
+            margin-top: -10px;
+            margin-left: 55px;
+            display: flex;
+            flex-direction: column;
+        }
+    </style>
+
+    <style>
+        :root {
+
+    /* debut */
+    --header-background: rgb(255, 255, 255); /* #eeeeee */
+	--header-foreground: rgb(142, 68, 173); /*#888888*/
+	
+	--red: rgb(231, 76, 60);
+    --light-red:rgb(236, 100, 100);
+    --very-light-red:rgba(236, 100, 100, 0.2);
+
+    --dark-00: rgb(255, 255, 255);
+    --dark-01: rgb(240, 240, 240);
+    --dark-02: rgb(248, 248, 248);
+    --dark-03: rgb(33, 33, 33); /* not used */
+    --dark-04: rgb(36, 36, 36); /* not used */
+    --dark-05: rgb(39, 39, 39); /* not used */
+    --dark-06: rgb(230, 230, 230);
+    --dark-07: rgb(50, 50, 50); /* not used */
+    --dark-08: rgb(53, 53, 53); /* not used */
+    --dark-09: rgb(222, 222, 222);
+
+    --gray-01: rgb(60, 60, 60);
+    --gray-02: rgb(128, 128, 128);
+
+    --black-00:rgb(0, 0, 0);
+
+    --very-light-purple:rgb(230, 225, 249);
+    --light-purple:rgb(155, 89, 182);
+    --purple:rgb(142, 68, 173);
+}
+
+#chat-inputs-body {
+    background-color: var(--dark-00);
+    padding: 10px;
+    max-width: 500px;
+}
+
+#chat-inputs {
+    width: 100%;
+    min-height: 40px;
+    padding: 5px 20px;
+    background-color: var(--dark-02);
+
+    border: solid 1px var(--dark-09);
+    border-radius: 50px;
+
+    display: flex;
+    justify-content: space-between;
+    transition: all 0.2s ease-in-out;
+}
+
+#chat-inputs:focus-within {
+    border: solid 1px var(--light-purple);
+}
+
+#chat-inputs.editing {
+    border-color: var(--very-purple);
+}
+
+#chat-message-input {
+    background: none;
+    border: none;
+
+    margin: 0px 5px;
+    width: 100%;
+
+    font-size: 15px;
+}
+
+#chat-message-input:focus {
+    outline: none;
+}
+
+.chat-option {
+    min-width: 20px;
+    min-height: 20px;
+    margin: auto 0px;
+
+    color: var(--gray-02);
+    transition: all 0.15s ease-in-out;
+}
+
+.chat-option:hover {
+    color: var(--black-00);
+    cursor: pointer;
+}
+
+.chat-option-separator {
+    width: 20px; 
+    height: 0px;
+    margin: auto 0px;
+}
+
+.chat-option-separator:last-of-type {
+    width: 2px; 
+    height: 20px;
+    margin-right: 15px;
+    margin-left: 15px;
+    
+    background-color: var(--gray-02);
+}
+
+#chat-message-edit {
+    display: none;
+}
+
+#chat-message-submit {
+    pointer-events: none;
+}
+
+#chat-message-submit:hover {
+    color: var(--purple);
+}
+    </style>
+    
+    <script>
+        
+    var canSend = false;
+    let chatInput = document.getElementById("chat-message-input");
+
+    chatInput.addEventListener("keydown", function(e) {
+        if (e.key == "Enter" && canSend) {
+            sendMessage();
+        }
+    });
+
+    chatInput.addEventListener("input", function() {
+        if (this.value && !canSend) {
+            enableMessageSubmitButton();
+        } else if (!this.value) { 
+            disableMessageSubmitButton();
+        }
+    });
+
+    function enableMessageSubmitButton() {
+        let chatMessageSubmit = document.getElementById("chat-message-submit");
+        chatMessageSubmit.style.color = "var(--light-purple)";
+        chatMessageSubmit.style.pointerEvents = "auto";
+        canSend = true;
+    }
+
+    function disableMessageSubmitButton() {
+        let chatMessageSubmit = document.getElementById("chat-message-submit");
+        chatMessageSubmit.style.color = "var(--gray-02)";
+        chatMessageSubmit.style.pointerEvents = "none";
+        canSend = false;
+    }
+    </script>
+
 </body>
 
 <style>
