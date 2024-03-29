@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<head>
+    <link rel="stylesheet" type="text/css" href="css/login.css">
+    <script defer src="https://use.fontawesome.com/releases/v6.4.2/js/all.js"></script>
+</head>
+<html>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <body>
+        <form id="form-reg" method="post" action="php/loginOrRegister.php" class="form-container form-register">
+            <label for="login">Username</label>
+            <div id="loginDiv"><input type="text" class="login" id="login" name="login" placeholder="edgeur12" autocomplete="off" maxlength="50" required></div>
+            <label class="secure-password-and-bad-password" id="secure-login">
+                <div id="secure-login-details">&#8226 Username already taken</div>
+            </label>
+
+            <label for="password">Password</label>
+            <div class="passwordDivs" id="passwordDiv">
+                <input type="password" id="password" name="password" placeholder="NX:b7!LrPg@t2X9" minlength=8 maxlength="50" value="" required>
+                <button type="button" class="hide-password" id="hide-password"><i class="fa-solid fa-eye"></i></button>
+            </div>
+            <label class="secure-password-and-bad-password" id="secure-password">
+                <div id="secure-password-details">
+                    <p id="secure-8letters"><i class="fa-solid fa-xmark"></i> 8 letters</p>
+                    <p id="secure-capital"><i class="fa-solid fa-xmark"></i> 1 capital letter</p>
+                    <p id="secure-special"><i class="fa-solid fa-xmark"></i> 1 special char</p>
+                    <p id="secure-number"><i class="fa-solid fa-xmark"></i> 1 number</p>
+                </div>
+            </label>
+
+            <label for="password-verify">Password confirm</label>
+            <div class="passwordDivs" id="passwordVerifyDiv">
+                <input type="password" id="password-verify" name="password-verify" placeholder="NX:b7!LrPg@t2X9" minlength="8" maxlength="50" required>
+                <button type="button" class="hide-password" id="hide-password-verify"><i class="fa-solid fa-eye"></i></button>
+            </div>
+            <label class="secure-password-and-bad-password" id="secure-password-verify">
+                <div id="secure-password-verify-details">
+                    <p id="message-valid-verify">&#8226 Password does not match</p>
+                </div>
+            </label>
+
+            <input type="submit" id="submit-register" name="submit-register" value="Register">
+
+            <div class="separator"></div>
+            <p class="already-account">Already have an account? <a href="index.php">Login now</a></p>
+
+            <input type="hidden" id="hidden-value" name="hidden-value">
+        </form>
+    </body>
+
+    <script src="js/register.js"></script>
+
+</html>
