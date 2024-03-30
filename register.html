@@ -8,14 +8,14 @@
     <body>
         <form id="form-reg" method="post" action="php/loginOrRegister.php" class="form-container form-register">
             <label for="login">Username</label>
-            <div id="loginDiv"><input type="text" class="login" id="login" name="login" placeholder="quentin123" autocomplete="off" maxlength="50" required></div>
+            <div id="loginDiv"><input type="text" class="login" id="login" name="login" placeholder="FruitsEnjoyer" autocomplete="off" maxlength="50" required></div>
             <label class="secure-password-and-bad-password" id="secure-login">
                 <div id="secure-login-details">&#8226 Username already taken</div>
             </label>
 
             <label for="password">Password</label>
             <div class="passwordDivs" id="passwordDiv">
-                <input type="password" id="password" name="password" placeholder="NX:b7!LrPg@t2X9" minlength=8 maxlength="50" value="" required>
+                <input type="password" id="password" name="password" placeholder="Eat5Fruits!" minlength=8 maxlength="50" value="" required>
                 <button type="button" class="hide-password" id="hide-password"><i class="fa-solid fa-eye"></i></button>
             </div>
             <label class="secure-password-and-bad-password" id="secure-password">
@@ -27,9 +27,9 @@
                 </div>
             </label>
 
-            <label for="password-verify">Password confirm</label>
+            <label for="password-verify">Confirm password</label>
             <div class="passwordDivs" id="passwordVerifyDiv">
-                <input type="password" id="password-verify" name="password-verify" placeholder="NX:b7!LrPg@t2X9" minlength="8" maxlength="50" required>
+                <input type="password" id="password-verify" name="password-verify" placeholder="Eat5Fruits!" minlength="8" maxlength="50" required>
                 <button type="button" class="hide-password" id="hide-password-verify"><i class="fa-solid fa-eye"></i></button>
             </div>
             <label class="secure-password-and-bad-password" id="secure-password-verify">
@@ -48,5 +48,6 @@
     </body>
 
     <script src="js/register.js"></script>
+    <script src="js/redirectLoggedUser.js"></script>
 
 </html>

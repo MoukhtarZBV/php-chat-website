@@ -1,4 +1,9 @@
 <?php
+session_start();
+if (empty($_SESSION)) {
+    exit();
+}
+
 require "userDAO.php";
 require "dbConnection.php";
 

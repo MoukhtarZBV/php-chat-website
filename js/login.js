@@ -1,3 +1,7 @@
+
+var userStillLoggedIn = 3000;
+
+// Removes the "passlogin" parameter from the url when the login failed
 function deleteGetURL() {
     var url = window.location.href;
 
@@ -8,30 +12,35 @@ function deleteGetURL() {
     }
 }
 
-/* delete url */
+// Delete the parameter from the url
 deleteGetURL();
 
-document.getElementById("password").addEventListener("input", function(event) {
-    document.getElementById("password").value = document.getElementById("password").value.replace(' ', '');
+// Assign events listeners when everything loaded
+$(document).ready(function() {
+    
+    // Event listener for the password input field to remove every spaces
+    $("#password").on("input", function(event) {
+        $(this).val($(this).val().replace(/ +?/g, ''));
+    });
+
+    // Event listener for the login input field to remove every spaces AND special characters
+    $("#login").on("input", function(event) {
+        $(this).val($(this).val().replace(/[^a-zA-Z0-9]/g, ''));
+    });
+
+    // Event listener for the 'hide password' button
+    let isRegisterPasswordShow = false;
+    $("#hide-password").on("click", function() {
+        if (isRegisterPasswordShow) {
+            $("#hide-password").html('<i class="fa-solid fa-eye"></i>');
+            $("#password").attr("type", "password");
+            isRegisterPasswordShow = false;
+        } else {
+            $("#hide-password").html('<i class="fa-solid fa-eye-slash"></i>');
+            $("#password").attr("type", "text");
+            isRegisterPasswordShow = true;
+        }
+    });
 });
 
-document.getElementById("login").addEventListener('input', function(event) {
-    document.getElementById("login").value = document.getElementById("login").value.replace(/[^a-zA-Z0-9]/g, '');
-});
 
-
-let isRegisterPasswordShow = false;
-
-document.getElementById("hide-password").addEventListener("click", function() {
-    let element = document.getElementById("hide-password");
-
-    if (isRegisterPasswordShow) {
-        element.innerHTML = '<i class="fa-solid fa-eye"></i>';
-        document.getElementById("password").type = "password";
-        isRegisterPasswordShow = false;
-    } else {
-        element.innerHTML = '<i class="fa-solid fa-eye-slash"></i>';
-        document.getElementById("password").type = "text";
-        isRegisterPasswordShow = true;
-    }
-})

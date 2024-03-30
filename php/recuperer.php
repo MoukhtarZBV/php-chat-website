@@ -1,5 +1,9 @@
 <?php
 session_start();
+if (empty($_SESSION)) {
+    exit();
+}
+
 require "dbConnection.php";
 require "messageDAO.php";
 require "userDAO.php";
@@ -21,13 +25,19 @@ $messages = array_reverse($messages);
 foreach ($messages as $message) {
     // If the last message sender is different from the current message, 
     // or if the last message was sent more than 5 minutes before the current one, create a new group
-    if ($message["userPseudo"] != $lastSender || differenceInMinutes($message["horaire"], $lastTimestamp) > 5) {
+    if ($message["userPseudo"] != $lastSender || differenceInMinutes($message["horaire"], $lastTimestamp) > 5.0) {
+
         if ($message["userPseudo"] != $lastSender) {
-            $lastSender = $message["userPseudo"];
-            $user = getUserByUsername($pdo, $message["userPseudo"]);
             $profilePicture = 'default-picture.png';
-            if (!empty($user["pfp"])) {
-                $profilePicture = $user["pfp"];
+            // If the user has been deleted
+            if (empty($message["userPseudo"])) {
+                $lastSender = "<em>Deleted user</em>";
+            } else {
+                $lastSender = htmlspecialchars($message["userPseudo"]);
+                $user = getUserByUsername($pdo, $message["userPseudo"]);
+                if (!empty($user["pfp"])) {
+                    $profilePicture = $user["pfp"];
+                }
             }
         }
         
@@ -48,7 +58,7 @@ foreach ($messages as $message) {
         echo '<div class="message-sender ' . $classUserMe . '">
                 <img class="message-pfp" src="images/pfp/' . $profilePicture . '">
                 <p class="message-infos ' . $classUserMe . '">
-                    <span class="message-sender-username">'. $message["userPseudo"] .'</span><span class="message-sent-date">'. gmdate("H:i", $message["horaire"]) .'</span>
+                    <span class="message-sender-username">'. $lastSender .'</span><span class="message-sent-date">'. gmdate("H:i", $message["horaire"]) .'</span>
                 </p>
             </div>';
         // Build the messages group
@@ -56,7 +66,7 @@ foreach ($messages as $message) {
     }
 
     // Append the new message to the messages group
-    echo '<div class="message">'. $message["contenu"] .'</div>';
+    echo '<div class="message">'. htmlspecialchars($message["contenu"]) .'</div>';
 }
 
 /**
@@ -66,6 +76,6 @@ foreach ($messages as $message) {
  * @param  int  $secondSentHour The timestamp of the second message
  * @return int  The difference, in minutes, between the two timestamps
  */
-function differenceInMinutes(int $firstMessageTimestamp, int $secondMessageTimestamp): int {
-    return abs($firstMessageTimestamp - $secondMessageTimestamp) / 60;
+function differenceInMinutes(int $firstMessageTimestamp, int $secondMessageTimestamp): float {
+    return abs($firstMessageTimestamp - $secondMessageTimestamp) / 60.0;
 }

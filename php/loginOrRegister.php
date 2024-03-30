@@ -25,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         session_unset();
     }
     // Else, head back to the login with an error popup
-    header("Location: ../index.php?passusername=false");
+    header("Location: ../index.php?passlogin=false");
     exit();
 // POST request if the user is trying to create an account
 } else if ($_SERVER["REQUEST_METHOD"] == "POST") {

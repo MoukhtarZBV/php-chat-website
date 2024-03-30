@@ -17,6 +17,7 @@
     
     --turquoise: rgb(22, 160, 133);
     --turquoise-hover: rgba(22, 160, 133, 0.8);
+    --turquoise-transparent: rgba(26, 188, 156, 0.10);
 
     --register-bar-password-color: #e74c3c;
     --register-bar-password-verify-color: #e74c3c;
@@ -73,13 +74,13 @@ body {
 
 .account-created {
     text-align: center;
-    color: rgb(41, 168, 253);
+    color: var(--turquoise);
     padding-left: 40px;
     height: 55px;
     width: 100vw;
-    border-top: 2px solid rgb(41, 128, 185);
-    border-bottom: 2px solid rgb(41, 128, 185);
-    background-color: rgba(41, 128, 185, 0.25);
+    border-top: 2px solid var(--turquoise);
+    border-bottom: 2px solid var(--turquoise);
+    background-color: var(--turquoise-transparent);
     position: fixed;
     top: 0;
     left: 0;
@@ -114,7 +115,7 @@ body {
 label {
     display: block;
     margin-bottom: 6px;
-    color: #aaaaaa;
+    color: #606060;
     font-size: 12px;
     font-weight: bold;
 }
@@ -159,7 +160,7 @@ input[type="submit"]:hover {
     position: absolute;
     right:10px;
     background: none;
-    color:#aaaaaa;
+    color:#606060;
     font-size:15px;
 }
 
@@ -243,7 +244,7 @@ a:hover {
 .already-account {
     font-size: 12px;
     margin: 0;
-    color:  #859a91;
+    color:  #808080;
 }
 
 .separator {

@@ -1,5 +1,9 @@
 <?php
 session_start();
+if (empty($_SESSION)) {
+    exit();
+}
+
 require "dbConnection.php";
 require "messageDAO.php";
 require "userDAO.php";

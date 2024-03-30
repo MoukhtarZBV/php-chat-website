@@ -1,3 +1,7 @@
+var chatRefreshRate = 400;
+var loggedUsersRefreshRate = 1000;
+var userStillLoggedIn = 3000;
+
 /**
  * Resets the input state and stores the sent message in the database
  */
@@ -20,7 +24,9 @@ function sendMessage() {
             },
             success: function(data) {
                 if (data) {
-                    scrollDownChat();
+                    setTimeout(function (){
+                        scrollDownChat();         
+                      }, chatRefreshRate + 50);
                 } 
             }
         });
@@ -62,11 +68,11 @@ setInterval(function() {
             if (data) {
                 $("#chat-body").html(data);
             } else {
-                $("#chat-body").html("<p>No message</p>");
+                $("#chat-body").html("<p style='margin:auto; color: #bbbbbb; font-style: italic'>No messages...</p>");
             }
         }
     });
-}, 400);
+}, chatRefreshRate);
 
 /**
  * Checks if two html contents are equal
@@ -88,14 +94,32 @@ setInterval(function() {
         url: 'php/loggedUsers.php',
         success: function(data) {
             if (data) {
+                // if nothing changed, do not change the html content
+                // (Prevents hovering effects to glitch out and have artifacts)
                 if (!htmlEquals(data, $("#logged-users-list").html())) {
                     $("#logged-users-list").html(data);
                 }
             } else {
-                $("#logged-users-list").html("<p>No logged user</p>");
+                $("#logged-users-list").html("<p style='margin:auto; color: #bbbbbb; font-style: italic'>No logged users...</p>");
             }
         }
     });
-}, 1000);
+}, loggedUsersRefreshRate);
+
+// When everything loaded
+$(document).ready(function() {
+    scrollDownChat();
+});
 
 
+/**
+* Checks if the user is still logged in and heads back
+* to the login in all opened tabs if not
+*/
+setInterval(function() {
+   $.get("php/userStillLoggedIn.php", function(data){
+       if(!data) {
+           window.location = "index.php"; 
+       }
+   });
+}, userStillLoggedIn);
