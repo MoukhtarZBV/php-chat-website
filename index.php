@@ -16,7 +16,7 @@ $wrongPass = isset($_GET['passlogin']) ? $_GET['passlogin'] : null;
         </div>
         <form method="get" action="php/loginOrRegister.php"  class="form-container form-login">
             <label for="login">Login</label>
-            <input type="text" class="login" id="login" name="login" placeholder="edgeur12" required>
+            <input type="text" class="login" id="login" name="login" placeholder="quentin123" required>
 
             <label for="password">Password</label>
             <div class="passwordDivs" id="passwordDiv">

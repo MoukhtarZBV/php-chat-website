@@ -108,6 +108,9 @@ $(document).ready(function() {
         $("#passwordDiv").css("--register-bar-password-color", barColor);
         $("#passwordDiv").css("--register-bar-password-width", barWidth);
 
+        style.setProperty('--register-bar-password-color', barColor);
+        style.setProperty("--register-bar-password-width", barWidth);
+
         passwordVerifyEventListener();
     });
 
