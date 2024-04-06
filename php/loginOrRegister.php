@@ -30,6 +30,12 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 // POST request if the user is trying to create an account
 } else if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
+    if (empty($_SESSION["login"] || empty($_SESSION["password"]) || empty($_SESSION["password-verify"]))) {
+        // Head back to the register page
+        header("Location: ../register.html");
+        exit();
+    }
+
     $username = $_POST["login"];
     $password = $_POST["password"];
     $passwordverify = $_POST["password-verify"];

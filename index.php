@@ -6,7 +6,9 @@ $wrongPass = isset($_GET['passlogin']) ? $_GET['passlogin'] : null;
 <!DOCTYPE html>
 <head>
     <link rel="stylesheet" type="text/css" href="css/login.css">
+    <link rel="icon" type="image/x-icon" href="/images/chat-icon.png">
     <script defer src="https://use.fontawesome.com/releases/v6.4.2/js/all.js"></script>
+    <title>Login</title>
 </head>
 <html>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>

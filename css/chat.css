@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
 :root {
-    --turquoise: rgb(22, 160, 133);
+    --turquoise: #16a085;
     --main-gray: rgb(50, 50, 50); 
 
     --dark-00: rgb(255, 255, 255);
@@ -88,6 +88,18 @@ main {
 #logged-users-list::-webkit-scrollbar-thumb {
     background-color: #2e2E2E;
     border-radius: 100px;
+}
+
+#no-logged-users {
+    width:100%; 
+    height:100%; 
+    display:flex;
+    color: #bbbbbb; 
+    font-style: italic
+}  
+
+#no-logged-users > span {
+    margin: auto;
 }
 
 .logged-user {
@@ -177,7 +189,9 @@ main {
     transform: scale(1.05);
 }
 
+/*************/
 /* Chat body */
+/*************/
 
 #chat-body {
     flex: 1 1 auto;
@@ -185,6 +199,7 @@ main {
     display: flex;
     flex-direction: column;
     overflow-y: scroll;
+    padding: 0px 10px;
 }
 
 #chat-body::-webkit-scrollbar {
@@ -202,7 +217,7 @@ main {
 
 .message-sender {
     display: flex;
-    margin-top: 20px;
+    margin-top: 25px;
 }
 
 .message-pfp {
@@ -225,6 +240,7 @@ main {
 
 .message-sent-date {
     font-size: 15px;
+    color: rgba(0, 0, 0, 0.6);
 }
 
 .message-group {
@@ -234,7 +250,9 @@ main {
     flex-direction: column;
 }
 
+/*********************/
 /* User own messages */
+/*********************/
 
 .message-sender.user-me {
     flex-direction: row-reverse;
@@ -254,8 +272,9 @@ main {
     text-align: right;
 }
 
-
+/**************/
 /* Chat input */
+/**************/
 
 #chat-inputs-body {
     flex: 0 1 auto;
@@ -264,6 +283,7 @@ main {
     width: 100%;
     background-color: var(--dark-00);
     padding: 10px;
+    padding-top:20px;
 }
 
 #chat-inputs {

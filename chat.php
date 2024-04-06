@@ -10,6 +10,7 @@ if (empty($_SESSION["username"])) {
     <meta charset="UTF-8" />
     <link rel="stylesheet" href="css/chat.css">
     <script defer src="https://use.fontawesome.com/releases/v6.4.2/js/all.js"></script>
+    <link rel="icon" type="image/x-icon" href="/images/chat-icon.png">
     <script src = "https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <title>Chat</title>
 </head>
@@ -28,7 +29,7 @@ if (empty($_SESSION["username"])) {
             <div id="chat-body"></div>
             <div id="chat-inputs-body">
                 <div id="chat-inputs">
-                    <input type="text" id="chat-message-input" name="message" placeholder="Saisissez un message..." autocomplete="off">
+                    <input type="text" id="chat-message-input" name="message" placeholder="Send a message..." autocomplete="off">
                     <div class='chat-option-separator'></div>
                     <i class="chat-option fa-solid fa-paper-plane" id="chat-message-submit" onclick = "sendMessage()"></i>
                 </div>

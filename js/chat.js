@@ -1,6 +1,10 @@
-var chatRefreshRate = 400;
+var chatRefreshRate = 500;
 var loggedUsersRefreshRate = 1000;
 var userStillLoggedIn = 3000;
+
+var hasToScroll = true;
+
+var displayedIDs = [];
 
 /**
  * Resets the input state and stores the sent message in the database
@@ -24,9 +28,7 @@ function sendMessage() {
             },
             success: function(data) {
                 if (data) {
-                    setTimeout(function (){
-                        scrollDownChat();         
-                      }, chatRefreshRate + 50);
+                    hasToScroll = true;
                 } 
             }
         });
@@ -65,8 +67,41 @@ setInterval(function() {
         type: 'POST',
         url: 'php/recuperer.php',
         success: function(data) {
+            // If data was successfully retrieved
             if (data) {
-                $("#chat-body").html(data);
+                data = JSON.parse(data);
+
+                // For each message group, composed of the sender and his messages
+                data.forEach(messageGroup => {
+                    // Check if any of the message's ID is already stored in the 
+                    // already displayed messages ID
+                    if (displayedIDs.some(id => messageGroup.displayedIDs.includes(id))) {
+
+                        // If so, parse the string into a HTML object and get every messages
+                        let messagesHTML = $(messageGroup.messages);
+                        let messages = messagesHTML.find(".message");
+
+                        // For each message, check if it has already been displayed
+                        messages.each(function() {
+                            if (!displayedIDs.includes(parseInt($(this).attr("data-message-id")))) {
+                                // If not, append it to the last group of messages and store its ID
+                                $(".message-group:last-of-type").append($(this));
+                                displayedIDs.push(parseInt($(this).attr("data-message-id")));
+                            }
+                        });
+
+                    // If not, simply append the message group
+                    } else {
+                        $("#chat-body").append(messageGroup.messages);
+                        displayedIDs.push(...messageGroup.displayedIDs);
+                    }
+                });
+
+                // If it's the first time loading messages or the user sent one, scroll down
+                if (hasToScroll) {
+                    hasToScroll = false;
+                    scrollDownChat();
+                }
             } else {
                 $("#chat-body").html("<p style='margin:auto; color: #bbbbbb; font-style: italic'>No messages...</p>");
             }
@@ -100,17 +135,11 @@ setInterval(function() {
                     $("#logged-users-list").html(data);
                 }
             } else {
-                $("#logged-users-list").html("<p style='margin:auto; color: #bbbbbb; font-style: italic'>No logged users...</p>");
+                $("#logged-users-list").html("<p id='no-logged-users'><span>No logged users...</span></p>");
             }
         }
     });
 }, loggedUsersRefreshRate);
-
-// When everything loaded
-$(document).ready(function() {
-    scrollDownChat();
-});
-
 
 /**
 * Checks if the user is still logged in and heads back

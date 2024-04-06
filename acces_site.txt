@@ -1,0 +1,12 @@
+Lien du site :
+https://mz-works.alwaysdata.net/
+
+Détails :
+Nous avons crée un format de groupe de messages par utilisateur et par heure d'envoi (Création d'un nouveau groupe si un même utilisateur n'a pas envoyé de message depuis plus de 5 minutes), ce qui explique l'algorithme dans le fichier recuperer.php et dans l'appel AJAX dans le fichier chat.js, qui s'occupe d'afficher uniquement les nouveaux messages, tout en conservant ceux déjâ affichés.
+
+Comptes :
+Voici quelques comptes avec lesquelles vous pouvez vous connecter :
+Login : YouChen		Mot de passe : $iutinfoA1
+Login : ember		Mot de passe : $iutinfoA1
+Login : Nautilus	Mot de passe : $iutinfoA1
+Login : FruitsEnjoyer	Mot de passe : Eat5Fruits!
